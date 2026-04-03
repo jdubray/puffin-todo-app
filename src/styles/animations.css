@@ -1,0 +1,111 @@
+/**
+ * Pulse Animations
+ * Keyframes and animation utility classes.
+ * All animations are suppressed when prefers-reduced-motion is set.
+ */
+
+/* ── Keyframes ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(24px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(24px); opacity: 0; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes slideOutDown {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(12px); opacity: 0; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   var(--color-primary-alpha); }
+  70%  { box-shadow: 0 0 0 20px rgba(108, 99, 255, 0); }
+  100% { box-shadow: 0 0 0 0   rgba(108, 99, 255, 0); }
+}
+
+/* Task card entry */
+@keyframes cardEnter {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* Completion bloom */
+@keyframes completionBloom {
+  0%   { transform: scale(1);    background: var(--color-surface); }
+  40%  { transform: scale(1.04); background: rgba(72, 187, 120, 0.15); }
+  100% { transform: scale(1);    opacity: 0; }
+}
+
+/* Streak increment */
+@keyframes streakPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* Momentum needle sweep */
+@keyframes needleSweep {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: var(--target-offset, 50); }
+}
+
+/* ── Task card lifecycle animations ─────────────────────── */
+.task-card.entering {
+  animation: cardEnter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.task-card.completing {
+  animation: completionBloom 0.4s ease-out forwards;
+  pointer-events: none;
+}
+
+.task-card.exiting {
+  animation: fadeOut 0.2s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ── Streak badge animation ────────────────────────────── */
+.streak-badge.popping #streak-value {
+  display: inline-block;
+  animation: streakPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Overlay transitions ───────────────────────────────── */
+.palette-container {
+  animation: scaleIn 0.15s ease-out forwards;
+}
+
+/* ── Reduced motion: strip all animations ──────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .task-card.entering,
+  .task-card.completing,
+  .task-card.exiting,
+  .streak-badge.popping #streak-value,
+  .palette-container,
+  .voice-mic-btn.listening {
+    animation: none;
+  }
+}

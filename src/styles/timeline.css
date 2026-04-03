@@ -1,0 +1,143 @@
+/**
+ * Pulse Timeline & Memory Vault Styles
+ */
+
+/* ── Timeline view ─────────────────────────────────────── */
+#view-timeline {
+  overflow-y: auto;
+  padding: var(--spacing-2xl);
+}
+
+#timeline-content {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.timeline-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.timeline-date {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.timeline-date.overdue  { color: var(--color-error);   }
+.timeline-date.due-soon { color: var(--color-warning);  }
+
+.timeline-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.timeline-task {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.timeline-task:hover,
+.timeline-task:focus-visible {
+  background: var(--color-surface-raised);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.timeline-task-status {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  background: var(--color-text-disabled);
+}
+
+.timeline-task-status[data-status="active"]   { background: var(--color-status-active); }
+.timeline-task-status[data-status="blocked"]  { background: var(--color-status-blocked); }
+.timeline-task-status[data-status="snoozed"]  { background: var(--color-status-snoozed); }
+.timeline-task-status[data-status="seed"]     { background: var(--color-status-seed); }
+
+.timeline-task-title {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.timeline-task-project {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-light);
+}
+
+/* ── Memory Vault view ─────────────────────────────────── */
+#view-memory {
+  overflow-y: auto;
+  padding: var(--spacing-2xl);
+}
+
+#memory-content {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.memory-vault {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.memory-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  padding-bottom: var(--spacing-md);
+  z-index: 1;
+}
+
+.memory-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.memory-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.memory-card:hover {
+  opacity: 1;
+}
+
+.memory-card-title {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.memory-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
