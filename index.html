@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pulse — a personal, local-first task manager" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; connect-src 'self'; style-src 'self' 'unsafe-inline';" />
+  <title>Pulse</title>
+  <link rel="icon" type="image/svg+xml" href="/puffin-todo-app/icons/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <script type="module" crossorigin src="/puffin-todo-app/assets/index-BPtsl9a2.js"></script>
+  <link rel="modulepreload" crossorigin href="/puffin-todo-app/assets/vendor-CM_Y8Fql.js">
+  <link rel="stylesheet" crossorigin href="/puffin-todo-app/assets/index-C_2xr1xq.css">
+<link rel="manifest" href="/puffin-todo-app/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/puffin-todo-app/registerSW.js"></script></head>
+<body>
+  <!-- App shell -->
+  <div id="app" role="application" aria-label="Pulse task manager">
+
+    <!-- Top toolbar -->
+    <header id="toolbar" role="banner" aria-label="Application toolbar">
+      <div class="toolbar-left">
+        <button id="btn-menu" class="icon-btn" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <span class="logo" aria-label="Pulse">Pulse</span>
+      </div>
+
+      <div class="toolbar-center">
+        <button id="btn-view-canvas"  class="view-btn active" aria-pressed="true"  data-view="canvas"  aria-label="Canvas view">Canvas</button>
+        <button id="btn-view-timeline" class="view-btn"        aria-pressed="false" data-view="timeline" aria-label="Timeline view">Timeline</button>
+        <button id="btn-view-memory"   class="view-btn"        aria-pressed="false" data-view="memory"   aria-label="Memory vault">Memory</button>
+      </div>
+
+      <div class="toolbar-right">
+        <div id="momentum-display" class="momentum-badge" aria-label="Momentum score" title="Momentum">
+          <span class="momentum-label">Momentum</span>
+          <span id="momentum-value" class="momentum-value" aria-live="polite">–</span>
+        </div>
+        <div id="streak-display" class="streak-badge" aria-label="Streak" title="Completion streak">
+          <span id="streak-value" aria-live="polite">0</span>
+          <span class="streak-icon" aria-hidden="true">🔥</span>
+        </div>
+        <button id="btn-voice"   class="icon-btn" aria-label="Start voice capture" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="7" y="2" width="6" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M4 10a6 6 0 0012 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="10" y1="16" x2="10" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button id="btn-focus"   class="icon-btn" aria-label="Enter focus mode" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="10" cy="10" r="3" fill="currentColor"/>
+          </svg>
+        </button>
+        <button id="btn-settings" class="icon-btn" aria-label="Open settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <main id="main-content" role="main">
+
+      <!-- Canvas view -->
+      <section id="view-canvas" class="view active" aria-label="Task canvas">
+        <div id="canvas-viewport" tabindex="0" aria-label="Task canvas — use arrow keys to navigate, double-click to create a task">
+          <div id="canvas-surface" role="region" aria-label="Canvas surface">
+            <!-- Task cards injected here by canvas-renderer.js -->
+          </div>
+        </div>
+        <canvas id="minimap" aria-hidden="true" title="Canvas minimap"></canvas>
+      </section>
+
+      <!-- Timeline view -->
+      <section id="view-timeline" class="view" aria-label="Task timeline" hidden>
+        <div id="timeline-content">
+          <!-- Timeline rows injected by timeline-renderer.js -->
+        </div>
+      </section>
+
+      <!-- Memory vault view -->
+      <section id="view-memory" class="view" aria-label="Memory vault" hidden>
+        <div id="memory-content">
+          <!-- Memory cards injected by memory-vault-renderer.js -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Quick capture bar -->
+    <div id="capture-bar" class="capture-bar" role="search" aria-label="Quick capture" aria-hidden="true" hidden>
+      <label for="capture-input" class="sr-only">New task — use natural language</label>
+      <input
+        id="capture-input"
+        type="text"
+        class="capture-input"
+        placeholder='New task… try "Fix login bug #backend tomorrow !urgent"'
+        autocomplete="off"
+        spellcheck="true"
+        aria-autocomplete="none"
+      />
+      <div id="capture-preview" class="capture-preview" aria-live="polite" aria-atomic="true"></div>
+      <button id="capture-submit" class="btn btn-primary" aria-label="Create task">Create</button>
+      <button id="capture-cancel" class="icon-btn" aria-label="Cancel capture">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Task editor panel -->
+    <aside id="task-editor" class="task-editor" role="complementary" aria-label="Task details" aria-hidden="true" hidden>
+      <!-- Injected by task-editor-renderer.js -->
+    </aside>
+
+    <!-- Command palette overlay -->
+    <div id="command-palette" class="overlay" role="dialog" aria-modal="true" aria-label="Command palette" aria-hidden="true" hidden>
+      <!-- Injected by command-palette-renderer.js -->
+    </div>
+
+    <!-- Voice capture overlay -->
+    <div id="voice-overlay" class="overlay voice-overlay" role="dialog" aria-modal="true" aria-label="Voice capture" aria-hidden="true" hidden>
+      <!-- Injected by voice-overlay-renderer.js -->
+    </div>
+
+    <!-- Focus mode overlay -->
+    <div id="focus-overlay" class="overlay focus-overlay" role="dialog" aria-modal="true" aria-label="Focus mode" aria-hidden="true" hidden>
+      <!-- Injected by focus-mode-renderer.js -->
+    </div>
+
+    <!-- Toast notification region -->
+    <div id="toast-region" role="status" aria-live="polite" aria-atomic="false" class="toast-region"></div>
+
+    <!-- Status bar -->
+    <footer id="status-bar" role="contentinfo" aria-label="Status bar">
+      <span id="status-task-count" aria-live="polite"></span>
+      <span id="status-message"    aria-live="polite"></span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

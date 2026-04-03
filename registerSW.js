@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/puffin-todo-app/sw.js', { scope: '/puffin-todo-app/' })})}
